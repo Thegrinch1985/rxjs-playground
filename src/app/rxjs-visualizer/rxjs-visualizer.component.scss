@@ -81,10 +81,12 @@
     border-radius: 4px;
     cursor: pointer;
     margin-top: 15px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   .reset-btn:hover {
     background-color: #005fa3;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
   
   /* Operator Section */
@@ -98,23 +100,49 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-height: 400px;
   }
-  .operator-menu button {
-    background: #eaeaea;
-    border: none;
+  
+  /* Search Input in Operator Menu */
+  .operator-search {
     margin-bottom: 10px;
-    padding: 12px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  .operator-search:focus {
+    border-color: #007acc;
+  }
+  
+  /* Container for the operator buttons */
+  .operator-buttons {
+    overflow-y: auto;
+  }
+  
+  /* Operator Menu Buttons */
+  .operator-menu button {
+    background: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
+    transition: all 0.3s ease;
     text-align: left;
     font-size: 1rem;
+    color: #333;
   }
-  .operator-menu button:hover,
+  .operator-menu button:hover {
+    background: #f0f0f0;
+  }
   .operator-menu button.active {
     background: #007acc;
     color: #fff;
-    transform: translateX(5px);
+    border-color: #007acc;
+    transform: translateX(3px);
   }
   
   /* Operator Visualization Card */

@@ -11,7 +11,14 @@ export class RxjsVisualizerComponent {
 
   // Define an array of colors for the nodes
   colors: string[] = ['#007acc', '#ff4500', '#32cd32', '#ffd700', '#ff69b4', '#8a2be2'];
+  // Define the full list of operators
+  operators: string[] = ['map', 'filter', 'tap', 'switchMap', 'mergeMap', 'shareReplay', 'takeUntil'];
 
+  // Initialize with the full list
+  filteredOperators: string[] = [...this.operators];
+  
+  // Model for the search input
+  operatorSearch: string = '';
   private streamInterval: any; 
   constructor() {
     this.startStream();
@@ -46,6 +53,14 @@ export class RxjsVisualizerComponent {
     this.resetNumbers();
     this.currentOperator = operator;
   }
+
+
+
+// Method to filter the list based on the search input
+filterOperators() {
+  const searchTerm = this.operatorSearch.toLowerCase();
+  this.filteredOperators = this.operators.filter(op => op.toLowerCase().includes(searchTerm));
+}
 
   // Clear the interval when the component is destroyed
   ngOnDestroy(): void {

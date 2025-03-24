@@ -22,24 +22,33 @@
       </div>
       <button class="reset-btn" (click)="resetNumbers()">Reset Stream</button>
     </section>
+  
     <section class="operator-section">
-        <nav class="operator-menu">
-            <button [class.active]="currentOperator === 'map'" (click)="selectOperator('map')">Map</button>
-            <button [class.active]="currentOperator === 'filter'" (click)="selectOperator('filter')">Filter</button>
-            <button [class.active]="currentOperator === 'tap'" (click)="selectOperator('tap')">Tap</button>
-            <button [class.active]="currentOperator === 'switchMap'" (click)="selectOperator('switchMap')">SwitchMap</button>
-            <button [class.active]="currentOperator === 'mergeMap'" (click)="selectOperator('mergeMap')">MergeMap</button>
-            <button [class.active]="currentOperator === 'shareReplay'" (click)="selectOperator('shareReplay')">ShareReplay</button>
-            <button [class.active]="currentOperator === 'takeUntil'" (click)="selectOperator('takeUntil')">TakeUntil</button>
-            <!-- <button [class.active]="currentOperator === 'merge'" (click)="selectOperator('merge')">Merge</button>
-            <button [class.active]="currentOperator === 'take'" (click)="selectOperator('take')">Take</button> -->
-          </nav>
-          
-        <div class="operator-display">
-          <!-- Pass the live stream numbers to the operator visualizer -->
-          <app-operator-visualizer [operator]="currentOperator" [streamNumbers]="numbers"></app-operator-visualizer>
+      <nav class="operator-menu">
+        <!-- Search field for operators -->
+        <input
+          type="text"
+          class="operator-search"
+          placeholder="Search operators"
+          [(ngModel)]="operatorSearch"
+          (input)="filterOperators()"
+        />
+        <!-- Container for operator buttons, with scroll on overflow -->
+        <div class="operator-buttons">
+          <button
+            *ngFor="let op of filteredOperators"
+            [class.active]="currentOperator === op"
+            (click)="selectOperator(op)"
+          >
+            {{ op | titlecase }}
+          </button>
         </div>
-      </section>
-      
+      </nav>
+  
+      <div class="operator-display">
+        <!-- Pass the live stream numbers to the operator visualizer -->
+        <app-operator-visualizer [operator]="currentOperator" [streamNumbers]="numbers"></app-operator-visualizer>
+      </div>
+    </section>
   </div>
   
