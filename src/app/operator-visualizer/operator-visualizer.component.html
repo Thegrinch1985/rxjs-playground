@@ -15,7 +15,7 @@
           </p>
           <div class="input-group">
             <label for="multiplier">Multiplier:</label>
-            <input type="number" id="multiplier" [(ngModel)]="multiplier" />
+            <input type="number" id="multiplier" [(ngModel)]="multiplier" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -35,7 +35,7 @@
           </p>
           <div class="input-group">
             <label for="threshold">Threshold:</label>
-            <input type="number" id="threshold" [(ngModel)]="filterThreshold" />
+            <input type="number" id="threshold" [(ngModel)]="filterThreshold" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -74,7 +74,7 @@
           </p>
           <div class="input-group">
             <label for="switchMultiplier">Multiplier (for simulation):</label>
-            <input type="number" id="switchMultiplier" [(ngModel)]="multiplier" />
+            <input type="number" id="switchMultiplier" [(ngModel)]="multiplier" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -93,7 +93,7 @@
           </p>
           <div class="input-group">
             <label for="mergeMultiplier">Multiplier (for simulation):</label>
-            <input type="number" id="mergeMultiplier" [(ngModel)]="multiplier" />
+            <input type="number" id="mergeMultiplier" [(ngModel)]="multiplier" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -113,7 +113,7 @@
           </p>
           <div class="input-group">
             <label for="replayCount">Replay Count:</label>
-            <input type="number" id="replayCount" [(ngModel)]="replayCount" />
+            <input type="number" id="replayCount" [(ngModel)]="replayCount" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -136,7 +136,7 @@
           </p>
           <div class="input-group">
             <label for="untilThreshold">Until Threshold:</label>
-            <input type="number" id="untilThreshold" [(ngModel)]="takeUntilThreshold" />
+            <input type="number" id="untilThreshold" [(ngModel)]="takeUntilThreshold" (ngModelChange)="emitOutputStream()"/>
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
@@ -157,5 +157,4 @@
         
       </div>
     </div>
-  </div>
   

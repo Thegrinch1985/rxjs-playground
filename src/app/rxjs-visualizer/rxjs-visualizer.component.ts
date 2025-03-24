@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-rxjs-visualizer',
   templateUrl: './rxjs-visualizer.component.html',
   styleUrls: ['./rxjs-visualizer.component.scss']
 })
-export class RxjsVisualizerComponent {
+export class RxjsVisualizerComponent implements OnDestroy {
   numbers: number[] = [];
   currentOperator: string = 'map'; // default operator
 
@@ -19,22 +19,26 @@ export class RxjsVisualizerComponent {
   
   // Model for the search input
   operatorSearch: string = '';
+
+  // Store the output stream computed by the operator visualizer
+  outputNumbers: number[] = [];
+
   private streamInterval: any; 
+
   constructor() {
     this.startStream();
   }
 
-  // Starts the stream of even numbers
+  // Starts the stream of random numbers
   startStream(): void {
-    // Clear any existing interval
     if (this.streamInterval) {
       clearInterval(this.streamInterval);
     }
     this.streamInterval = setInterval(() => {
       // Only add a new number if there are less than 10
       if (this.numbers.length < 10) {
-        const randomNumbers = Math.floor(Math.random() * 50);
-        this.numbers.push(randomNumbers);
+        const randomNumber = Math.floor(Math.random() * 50);
+        this.numbers.push(randomNumber);
       } else {
         // Stop the stream when ten numbers are reached
         clearInterval(this.streamInterval);
@@ -54,15 +58,18 @@ export class RxjsVisualizerComponent {
     this.currentOperator = operator;
   }
 
+  // Filter the operator list based on the search input.
+  filterOperators(): void {
+    const searchTerm = this.operatorSearch.toLowerCase();
+    this.filteredOperators = this.operators.filter(op => op.toLowerCase().includes(searchTerm));
+  }
 
+  // Handler to receive the transformed output stream from the operator component.
+  handleOutputStream(newStream: number[]): void {
+    this.outputNumbers = newStream;
+  }
 
-// Method to filter the list based on the search input
-filterOperators() {
-  const searchTerm = this.operatorSearch.toLowerCase();
-  this.filteredOperators = this.operators.filter(op => op.toLowerCase().includes(searchTerm));
-}
-
-  // Clear the interval when the component is destroyed
+  // Clear the interval when the component is destroyed.
   ngOnDestroy(): void {
     if (this.streamInterval) {
       clearInterval(this.streamInterval);
