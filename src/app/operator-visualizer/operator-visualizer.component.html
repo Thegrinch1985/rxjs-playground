@@ -1,0 +1,112 @@
+<div class="operator-visualizer">
+    <div class="card">
+      <h3>{{ operator | titlecase }} Operator</h3>
+      <div [ngSwitch]="operator">
+        
+        <!-- Map Operator Section -->
+        <div *ngSwitchCase="'map'">
+          <p>
+            The <strong>map</strong> operator transforms each value emitted by an Observable by applying a function to each value.
+            It returns a new Observable that emits the transformed values.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(map(x => x * multiplier))</code>
+          </p>
+          <div class="input-group">
+            <label for="multiplier">Multiplier:</label>
+            <input type="number" id="multiplier" [(ngModel)]="multiplier" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p><strong>Transformed Stream:</strong> {{ mappedData | json }}</p>
+          </div>
+        </div>
+        
+        <!-- Filter Operator Section -->
+        <div *ngSwitchCase="'filter'">
+          <p>
+            The <strong>filter</strong> operator emits only those items from an Observable that pass a predicate test.
+            It creates a new Observable that includes only values meeting specific conditions.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(filter(x => x > threshold))</code>
+          </p>
+          <div class="input-group">
+            <label for="threshold">Threshold:</label>
+            <input type="number" id="threshold" [(ngModel)]="filterThreshold" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p>
+              <strong>Filtered Stream (values greater than threshold):</strong>
+              {{ filteredData | json }}
+            </p>
+          </div>
+        </div>
+        
+        <!-- Tap Operator Section -->
+        <div *ngSwitchCase="'tap'">
+          <p>
+            The <strong>tap</strong> operator is used to perform side effects for notifications from the source Observable.
+            It does not modify the stream data; it simply “taps” into the stream to, for example, log values.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(tap(x => console.log(x)))</code>
+          </p>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p><strong>Tap Log (side effects):</strong> {{ tapLog | json }}</p>
+          </div>
+        </div>
+        
+        <!-- Merge Operator Section -->
+        <div *ngSwitchCase="'merge'">
+          <p>
+            The <strong>merge</strong> operator combines multiple Observables into one by merging their emissions.
+            In this demonstration, we merge the live stream with a secondary stream.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>merge(stream1$, stream2$)</code>
+          </p>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p><strong>Second Stream:</strong> {{ secondStream | json }}</p>
+            <p><strong>Merged Stream (interleaved):</strong> {{ mergedData | json }}</p>
+          </div>
+        </div>
+        
+        <!-- Take Operator Section -->
+        <div *ngSwitchCase="'take'">
+          <p>
+            The <strong>take</strong> operator emits only the first N values from an Observable and then completes.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(take(count))</code>
+          </p>
+          <div class="input-group">
+            <label for="takeCount">Take Count:</label>
+            <input type="number" id="takeCount" [(ngModel)]="takeCount" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p><strong>Taken Stream (first {{ takeCount }} values):</strong> {{ takenData | json }}</p>
+          </div>
+        </div>
+        
+        <!-- Default Section for Unsupported Operators -->
+        <div *ngSwitchDefault>
+          <p>
+            Detailed information about the <strong>{{ operator }}</strong> operator is not available yet.
+            Please refer to the official RxJS documentation for more details.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  

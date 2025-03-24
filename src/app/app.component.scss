@@ -1,0 +1,18 @@
+/* src/app/app.component.scss */
+nav {
+    background-color: #34495e;
+    padding: 10px;
+    display: flex;
+  
+    a {
+      color: #ecf0f1;
+      text-decoration: none;
+      margin-right: 15px;
+  
+      &.active {
+        font-weight: bold;
+        border-bottom: 2px solid #ecf0f1;
+      }
+    }
+  }
+  

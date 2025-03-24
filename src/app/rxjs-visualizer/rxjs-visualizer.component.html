@@ -1,0 +1,40 @@
+<div class="visualizer-container">
+    <!-- Header -->
+    <header class="visualizer-header">
+      <h1>RxJS Visualizer</h1>
+    </header>
+  
+    <!-- Stream Section -->
+    <section class="stream-display">
+      <h2>Stream Data</h2>
+      <!-- Timeline with nodes -->
+      <div class="timeline">
+        <div class="line"></div>
+        <div class="nodes">
+          <div
+            *ngFor="let number of numbers; let i = index"
+            class="node"
+            [ngStyle]="{'background-color': colors[i % colors.length]}"
+          >
+            {{ number }}
+          </div>
+        </div>
+      </div>
+      <button class="reset-btn" (click)="resetNumbers()">Reset Stream</button>
+    </section>
+    <section class="operator-section">
+        <nav class="operator-menu">
+          <button [class.active]="currentOperator === 'map'" (click)="selectOperator('map')">Map</button>
+          <button [class.active]="currentOperator === 'filter'" (click)="selectOperator('filter')">Filter</button>
+          <button [class.active]="currentOperator === 'tap'" (click)="selectOperator('tap')">Tap</button>
+          <button [class.active]="currentOperator === 'merge'" (click)="selectOperator('merge')">Merge</button>
+          <button [class.active]="currentOperator === 'take'" (click)="selectOperator('take')">Take</button>
+        </nav>
+        <div class="operator-display">
+          <!-- Pass the live stream numbers to the operator visualizer -->
+          <app-operator-visualizer [operator]="currentOperator" [streamNumbers]="numbers"></app-operator-visualizer>
+        </div>
+      </section>
+      
+  </div>
+  

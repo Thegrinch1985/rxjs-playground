@@ -1,0 +1,52 @@
+.operator-visualizer {
+    margin: 20px;
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      h3 {
+        margin-bottom: 15px;
+        color: #007acc;
+        font-size: 1.8rem;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      code {
+        background-color: #f4f4f4;
+        padding: 4px 6px;
+        border-radius: 4px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.95rem;
+      }
+      .input-group {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+        label {
+          margin-right: 10px;
+          font-weight: bold;
+        }
+        input {
+          width: 80px;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+      }
+      .example {
+        background: #f9f9f9;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #eee;
+        p {
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+  
