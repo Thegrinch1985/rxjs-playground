@@ -1,6 +1,13 @@
-<!-- src/app/app.component.html -->
 <nav>
-  <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-  <a routerLink="/visualizer" routerLinkActive="active">RxJS Visualizer</a>
+  <a class="logo" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">RxJS Playground</a>
+  <ul>
+    <li>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    </li>
+    <li>
+      <a routerLink="/visualizer" routerLinkActive="active">RxJS Visualizer</a>
+    </li>
+    <!-- Add more links here as needed -->
+  </ul>
 </nav>
 <router-outlet></router-outlet>

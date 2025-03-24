@@ -6,7 +6,7 @@
         <!-- Map Operator Section -->
         <div *ngSwitchCase="'map'">
           <p>
-            The <strong>map</strong> operator transforms each value emitted by an Observable by applying a function to each value.
+            The <strong>map</strong> operator transforms each value emitted by an Observable by applying a function to it.
             It returns a new Observable that emits the transformed values.
           </p>
           <p>
@@ -27,7 +27,7 @@
         <div *ngSwitchCase="'filter'">
           <p>
             The <strong>filter</strong> operator emits only those items from an Observable that pass a predicate test.
-            It creates a new Observable that includes only values meeting specific conditions.
+            It creates a new Observable with values that meet specified conditions.
           </p>
           <p>
             <strong>Usage Example:</strong>
@@ -49,8 +49,8 @@
         <!-- Tap Operator Section -->
         <div *ngSwitchCase="'tap'">
           <p>
-            The <strong>tap</strong> operator is used to perform side effects for notifications from the source Observable.
-            It does not modify the stream data; it simply “taps” into the stream to, for example, log values.
+            The <strong>tap</strong> operator allows you to perform side effects for notifications from the source Observable.
+            It does not modify the stream, but can be used for logging or debugging.
           </p>
           <p>
             <strong>Usage Example:</strong>
@@ -58,43 +58,92 @@
           </p>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
-            <p><strong>Tap Log (side effects):</strong> {{ tapLog | json }}</p>
+            <p><strong>Tap Log:</strong> {{ tapLog | json }}</p>
           </div>
         </div>
         
-        <!-- Merge Operator Section -->
-        <div *ngSwitchCase="'merge'">
+        <!-- switchMap Operator Section -->
+        <div *ngSwitchCase="'switchMap'">
           <p>
-            The <strong>merge</strong> operator combines multiple Observables into one by merging their emissions.
-            In this demonstration, we merge the live stream with a secondary stream.
+            The <strong>switchMap</strong> operator maps each value to an Observable, then flattens all of these inner Observables,
+            emitting only values from the most recently projected Observable.
           </p>
           <p>
             <strong>Usage Example:</strong>
-            <code>merge(stream1$, stream2$)</code>
-          </p>
-          <div class="example">
-            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
-            <p><strong>Second Stream:</strong> {{ secondStream | json }}</p>
-            <p><strong>Merged Stream (interleaved):</strong> {{ mergedData | json }}</p>
-          </div>
-        </div>
-        
-        <!-- Take Operator Section -->
-        <div *ngSwitchCase="'take'">
-          <p>
-            The <strong>take</strong> operator emits only the first N values from an Observable and then completes.
-          </p>
-          <p>
-            <strong>Usage Example:</strong>
-            <code>source$.pipe(take(count))</code>
+            <code>source$.pipe(switchMap(x => innerObservable))</code>
           </p>
           <div class="input-group">
-            <label for="takeCount">Take Count:</label>
-            <input type="number" id="takeCount" [(ngModel)]="takeCount" />
+            <label for="switchMultiplier">Multiplier (for simulation):</label>
+            <input type="number" id="switchMultiplier" [(ngModel)]="multiplier" />
           </div>
           <div class="example">
             <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
-            <p><strong>Taken Stream (first {{ takeCount }} values):</strong> {{ takenData | json }}</p>
+            <p><strong>SwitchMap Result (latest value * multiplier):</strong> {{ switchMapData }}</p>
+          </div>
+        </div>
+        
+        <!-- mergeMap Operator Section -->
+        <div *ngSwitchCase="'mergeMap'">
+          <p>
+            The <strong>mergeMap</strong> operator maps each value to an Observable, then flattens all of these inner Observables concurrently.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(mergeMap(x => innerObservable))</code>
+          </p>
+          <div class="input-group">
+            <label for="mergeMultiplier">Multiplier (for simulation):</label>
+            <input type="number" id="mergeMultiplier" [(ngModel)]="multiplier" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p><strong>MergeMap Result (simulated):</strong> {{ mergeMapData | json }}</p>
+          </div>
+        </div>
+        
+        <!-- shareReplay Operator Section -->
+        <div *ngSwitchCase="'shareReplay'">
+          <p>
+            The <strong>shareReplay</strong> operator returns a new Observable that shares a single subscription to the source
+            and replays a specified number of emissions to new subscribers.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(shareReplay(replayCount))</code>
+          </p>
+          <div class="input-group">
+            <label for="replayCount">Replay Count:</label>
+            <input type="number" id="replayCount" [(ngModel)]="replayCount" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p>
+              <strong>Shared Replay (last {{ replayCount }} values):</strong>
+              {{ shareReplayData | json }}
+            </p>
+          </div>
+        </div>
+        
+        <!-- takeUntil Operator Section -->
+        <div *ngSwitchCase="'takeUntil'">
+          <p>
+            The <strong>takeUntil</strong> operator emits values from the source Observable until a notifier Observable emits a value.
+            In this simulation, we stop taking values once a value in the stream is greater than or equal to a specified threshold.
+          </p>
+          <p>
+            <strong>Usage Example:</strong>
+            <code>source$.pipe(takeUntil(notifier))</code>
+          </p>
+          <div class="input-group">
+            <label for="untilThreshold">Until Threshold:</label>
+            <input type="number" id="untilThreshold" [(ngModel)]="takeUntilThreshold" />
+          </div>
+          <div class="example">
+            <p><strong>Original Stream:</strong> {{ streamNumbers | json }}</p>
+            <p>
+              <strong>TakeUntil Result (values before first value ≥ {{ takeUntilThreshold }}):</strong>
+              {{ takeUntilData | json }}
+            </p>
           </div>
         </div>
         

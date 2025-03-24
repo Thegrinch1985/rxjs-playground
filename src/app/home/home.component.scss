@@ -1,10 +1,73 @@
-/* src/app/home/home.component.scss */
 .home {
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     text-align: center;
-    padding: 20px;
+    color: #2c3e50;
   
-    h1 {
-      color: #2c3e50;
+    .hero {
+      margin-bottom: 40px;
+      
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #34495e;
+      }
+      
+      p {
+        font-size: 1.25rem;
+        margin-bottom: 30px;
+      }
+      
+      .cta {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      
+      .feature {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+        }
+        
+        .icon {
+          font-size: 2.5rem;
+          margin-bottom: 15px;
+          color: #3498db;
+        }
+        
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+        
+        p {
+          font-size: 1rem;
+          color: #555;
+        }
+      }
     }
   }
   

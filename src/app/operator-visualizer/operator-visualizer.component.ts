@@ -6,55 +6,72 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./operator-visualizer.component.scss']
 })
 export class OperatorVisualizerComponent {
-  // Accept the operator name as an input. It can be 'map', 'filter', 'tap', 'merge', or 'take'.
+  // Accept the operator name as an input. It can be:
+  // 'map', 'filter', 'tap', 'mergeMap', 'switchMap', 'shareReplay', or 'takeUntil'
   @Input() operator: string = 'map';
   // Accept the live stream numbers from the parent component.
   @Input() streamNumbers: number[] = [];
 
-  // For the map operator: acts as the multiplier.
-  multiplier: number = 2;
-  // For the filter operator: acts as the threshold.
+  // Common input for some operators
+  multiplier: number = 2; // Used in map, switchMap, mergeMap simulations
+
+  // For filter operator.
   filterThreshold: number = 2;
-  // For the take operator: number of values to take from the stream.
+
+  // For take operator (if needed, though not requested now)
   takeCount: number = 5;
 
-  // A static secondary stream for demonstration of the merge operator.
-  secondStream: number[] = [100, 200, 300];
+  // For shareReplay operator: number of values to replay.
+  replayCount: number = 3;
 
-  // --- Computed Results ---
+  // For takeUntil operator: stop taking values when a value is >= this threshold.
+  takeUntilThreshold: number = 30;
 
-  // Map: Multiply each value by the provided multiplier.
+  // --- Computed Transformations ---
+
+  // MAP: Multiply each stream value by multiplier.
   get mappedData(): number[] {
     return this.streamNumbers.map(x => x * this.multiplier);
   }
 
-  // Filter: Return only values greater than the provided threshold.
+  // FILTER: Return only values greater than filterThreshold.
   get filteredData(): number[] {
     return this.streamNumbers.filter(x => x > this.filterThreshold);
   }
 
-  // Tap: For demonstration, we simulate a side effect by generating a log message for each value.
+  // TAP: Simulate a side-effect (here, generating a log message per value).
   get tapLog(): string[] {
     return this.streamNumbers.map(x => `Tapped value: ${x}`);
   }
 
-  // Merge: Interleave the live stream with the static second stream.
-  get mergedData(): number[] {
-    const merged: number[] = [];
-    const maxLength = Math.max(this.streamNumbers.length, this.secondStream.length);
-    for (let i = 0; i < maxLength; i++) {
-      if (i < this.streamNumbers.length) {
-        merged.push(this.streamNumbers[i]);
-      }
-      if (i < this.secondStream.length) {
-        merged.push(this.secondStream[i]);
-      }
-    }
-    return merged;
+  // SWITCHMAP: Simulate by taking only the most recent value and applying multiplier.
+  get switchMapData(): number {
+    return this.streamNumbers.length > 0 ? this.streamNumbers[this.streamNumbers.length - 1] * this.multiplier : 0;
   }
 
-  // Take: Return only the first N values from the stream.
-  get takenData(): number[] {
-    return this.streamNumbers.slice(0, this.takeCount);
+  // MERGEMAP: Simulate by mapping each value to an inner array [x, x+multiplier] and flattening.
+  get mergeMapData(): number[] {
+    const result: number[] = [];
+    this.streamNumbers.forEach(x => {
+      result.push(x, x + this.multiplier);
+    });
+    return result;
+  }
+
+  // SHARE_REPLAY: Simulate by returning the last replayCount values of the stream.
+  get shareReplayData(): number[] {
+    return this.streamNumbers.slice(-this.replayCount);
+  }
+
+  // TAKE_UNTIL: Simulate by taking stream values until a value is encountered that is >= takeUntilThreshold.
+  get takeUntilData(): number[] {
+    const result: number[] = [];
+    for (const x of this.streamNumbers) {
+      if (x >= this.takeUntilThreshold) {
+        break;
+      }
+      result.push(x);
+    }
+    return result;
   }
 }
